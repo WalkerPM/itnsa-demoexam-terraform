@@ -26,6 +26,14 @@ resource "vsphere_virtual_machine" "win-srv-left" {
     eagerly_scrub    = "${data.vsphere_virtual_machine.template-win-srv.disks.0.eagerly_scrub}"
     thin_provisioned = "${data.vsphere_virtual_machine.template-win-srv.disks.0.thin_provisioned}"
   }
+  disk {
+    label = "disk1"
+    size = 2
+  }
+  disk {
+    label = "disk2"
+    size = 2
+  }
 
   clone {
     template_uuid = "${data.vsphere_virtual_machine.template-win-srv.id}"
@@ -96,23 +104,14 @@ resource "vsphere_virtual_machine" "rtr-left" {
     network_id   = "${data.vsphere_network.pg-left-i-uid.id}"
     adapter_type = "${data.vsphere_virtual_machine.template-rtr.network_interface_types[0]}"
   }
-
   network_interface {
     network_id   = "${data.vsphere_network.pg-left-g-uid.id}"
     adapter_type = "${data.vsphere_virtual_machine.template-rtr.network_interface_types[0]}"
   }
-
-
-
   disk {
     label            = "disk0"
     size             = "${data.vsphere_virtual_machine.template-rtr.disks.0.size}"
     eagerly_scrub    = "${data.vsphere_virtual_machine.template-rtr.disks.0.eagerly_scrub}"
     thin_provisioned = "${data.vsphere_virtual_machine.template-rtr.disks.0.thin_provisioned}"
-  }
-
-  cdrom {
-    datastore_id = "${data.vsphere_datastore.iso-datastore.id}"
-    path         = "csr1000v-universalk9.16.09.04.iso"
   }
 }

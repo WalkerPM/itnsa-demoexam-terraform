@@ -42,7 +42,7 @@ resource "vsphere_virtual_machine" "rtr-isp" {
   }
   cdrom {
     datastore_id = "${data.vsphere_datastore.iso-datastore.id}"
-    path         = "csr1000v-universalk9.16.09.04.iso"
+    path         = var.linux_iso_path
  }
  
 }
