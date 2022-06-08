@@ -40,10 +40,11 @@ resource "vsphere_virtual_machine" "rtr-isp" {
   clone {
     template_uuid = "${data.vsphere_virtual_machine.template-linux.id}"
   }
-#  cdrom {
-#    datastore_id = "${data.vsphere_datastore.iso-datastore.id}"
-#    path         = "csr1000v-universalk9.16.09.04.iso"
-# }
+  cdrom {
+    datastore_id = "${data.vsphere_datastore.iso-datastore.id}"
+    path         = "csr1000v-universalk9.16.09.04.iso"
+ }
+ 
 }
 
 resource "vsphere_virtual_machine" "cli-ISP" {

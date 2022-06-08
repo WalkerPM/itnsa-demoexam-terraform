@@ -14,31 +14,31 @@ variable "lab-name" {
    }
 
 provider "vsphere" {
-  user           = "administrator@lab.lan"
-  password       = "(mT4bNdRwT"
-  vsphere_server = "192.168.15.58"
+  user           = "" // Логин, пароль и адрес vCenter
+  password       = ""
+  vsphere_server = ""
 
   allow_unverified_ssl = true
 }
 
 data "vsphere_datacenter" "dc" {
   name = "DC1"
-}
+} // Указывайте свой DC в vCenter
 
 data "vsphere_host" "host" {
   name          = "192.168.15.34"
   datacenter_id = "${data.vsphere_datacenter.dc.id}"
-}
+}// В данном кейсе развертывание идет через Standalone Host
 
 
 data "vsphere_folder" "folder" {
-  path = "Lab1"
+  path = var.lab-name
 }
 
 
 
 data "vsphere_datastore" "datastore" {
-  name          = "Dick-SSD"
+  name          = "datastore1"
   datacenter_id = "${data.vsphere_datacenter.dc.id}"
 }
 data "vsphere_datastore" "iso-datastore" {
@@ -56,11 +56,6 @@ data "vsphere_virtual_machine" "template-linux" {
   datacenter_id = "${data.vsphere_datacenter.dc.id}"
 }
 
-data "vsphere_virtual_machine" "template-web" {
-  name          = "Linux Web RC2021"
-  datacenter_id = "${data.vsphere_datacenter.dc.id}"
-}
-
 data "vsphere_virtual_machine" "template-rtr" {
   name          = "CSR1000v 9.17"
   datacenter_id = "${data.vsphere_datacenter.dc.id}"
@@ -73,4 +68,8 @@ data "vsphere_virtual_machine" "template-win-srv" {
 data "vsphere_virtual_machine" "template-win-cli" {
   name          = "Windows 10 Enterprise x64"
   datacenter_id = "${data.vsphere_datacenter.dc.id}"
+}
+variable "linux_iso_path" {
+  type = string
+  default = ""
 }
