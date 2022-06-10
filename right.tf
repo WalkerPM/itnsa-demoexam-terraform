@@ -66,6 +66,6 @@ resource "vsphere_virtual_machine" "rtr-right" {
     thin_provisioned = "${data.vsphere_virtual_machine.template-rtr.disks.0.thin_provisioned}"
   }
   cdrom {
-
+    client_device = true
   }
 }

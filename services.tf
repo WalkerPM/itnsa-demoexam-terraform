@@ -83,7 +83,7 @@ resource "vsphere_virtual_machine" "cli-ISP" {
       windows_options {
         computer_name  = "CHANGEME"
         workgroup      = "WORKGROUP"
-        admin_password = "P@ssw0rd!"
+        admin_password = "Passw0rd"
         time_zone = "180"
 
       }
