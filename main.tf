@@ -8,7 +8,7 @@ terraform {
 }
 variable "lab-name" { 
    type = string 
-   default = "Lab-1"
+   default = "Competitor 1"
    }
 provider "vsphere" {
   user           = "" // Логин, пароль и адрес vCenter
@@ -36,7 +36,7 @@ data "vsphere_datastore" "iso-datastore" {
   datacenter_id = "${data.vsphere_datacenter.dc.id}"
 }
 data "vsphere_resource_pool" "pool" {
-  name          = "Competitor 1"
+  name          = var.lab-name
   datacenter_id = "${data.vsphere_datacenter.dc.id}"
 }
 data "vsphere_virtual_machine" "template-linux" {
@@ -48,11 +48,11 @@ data "vsphere_virtual_machine" "template-rtr" {
   datacenter_id = "${data.vsphere_datacenter.dc.id}"
 }
 data "vsphere_virtual_machine" "template-win-srv" {
-  name          = "Windows Server 2019 STD GUI"
+  name          = "Win Server 2019 STD GUI"
   datacenter_id = "${data.vsphere_datacenter.dc.id}"
 }
 data "vsphere_virtual_machine" "template-win-cli" {
-  name          = "Windows 10 Enterprise x64"
+  name          = "Win 10 Ent"
   datacenter_id = "${data.vsphere_datacenter.dc.id}"
 }
 variable "linux_iso_path" {
