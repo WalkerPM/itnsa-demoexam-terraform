@@ -123,4 +123,10 @@ resource "vsphere_virtual_machine" "rtr-left" {
     eagerly_scrub    = "${data.vsphere_virtual_machine.template-rtr.disks.0.eagerly_scrub}"
     thin_provisioned = "${data.vsphere_virtual_machine.template-rtr.disks.0.thin_provisioned}"
   }
+  cdrom {
+    client_device = true
+  }
+  clone {
+    template_uuid = "${data.vsphere_virtual_machine.template-rtr.id}"
+  }
 }
